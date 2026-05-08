@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 오늘의 추천 | 라양</title>
+    <link rel="icon" href="https://hyunra94.github.io/assets/favicon.png">
+    <meta property="og:title" content="오늘의 추천 상품">
+    <meta property="og:image" content="https://hyunra94.github.io/assets/og-default.png">
+    <meta property="og:url" content="https://hyunra94.github.io/[레포명]/">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #FFE4E1 0%, #FFF0F5 50%, #E6E6FA 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* ============================================
+           📌 스크린샷할 영역 (이 div를 캡처하세요)
+           ============================================ */
+        .card-wrapper {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            padding: 24px;
+        }
+
+        /* 체리블라썸 장식 */
+        .blossom {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.85;
+            pointer-events: none;
+            user-select: none;
+        }
+        .blossom-1 { top: 0; left: 0; transform: rotate(-15deg); }
+        .blossom-2 { top: 4px; right: 4px; transform: rotate(20deg); }
+        .blossom-3 { bottom: 0; left: 8px; transform: rotate(-30deg); }
+        .blossom-4 { bottom: 4px; right: 0; transform: rotate(15deg); }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.4);
+            overflow: hidden;
+            border: 3px solid #FFB6C1;
+        }
+
+        /* 레트로 윈도우 타이틀바 */
+        .title-bar {
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #FF91A4;
+        }
+        .window-dots { display: flex; gap: 6px; }
+        .dot {
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.6);
+        }
+        .dot.red { background: #FF6B7A; }
+        .dot.yellow { background: #FFD93D; }
+        .dot.green { background: #B5EAD7; }
+        .title-text {
+            flex: 1;
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            letter-spacing: 1.5px;
+            margin-right: 42px;
+        }
+
+        /* 리본 배너 */
+        .ribbon {
+            background: linear-gradient(90deg, #FFB6C1, #DDA0DD);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 4px;
+        }
+
+        /* 상품 이미지 영역 */
+        .image-area {
+            padding: 20px 20px 12px;
+            background: linear-gradient(180deg, #FFF5F7 0%, #ffffff 100%);
+        }
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #FFF0F5;
+            border-radius: 14px;
+            border: 2px dashed #FFB6C1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #C99AAA;
+            font-size: 13px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 상품 정보 */
+        .info { padding: 0 20px 20px; }
+        .category {
+            color: #DDA0DD;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 1.5px;
+        }
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #4A4A4A;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #888;
+        }
+        .stars { color: #FFB347; letter-spacing: 1px; }
+
+        .price-area {
+            background: #FFF0F5;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .badge {
+            background: #FF6B7A;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .price {
+            font-size: 22px;
+            font-weight: 900;
+            color: #4A4A4A;
+        }
+
+        .features { list-style: none; margin-bottom: 18px; }
+        .features li {
+            padding: 5px 0;
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .features li::before {
+            content: '✿';
+            color: #FFB6C1;
+            font-size: 13px;
+            flex-shrink: 0;
+            line-height: 1.5;
+        }
+
+        .cta {
+            display: block;
+            background: linear-gradient(135deg, #FFB6C1 0%, #DDA0DD 100%);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(221, 160, 221, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .disclosure {
+            margin-top: 12px;
+            padding: 10px 12px;
+            background: #FFF8F8;
+            border-radius: 8px;
+            font-size: 10.5px;
+            color: #999;
+            line-height: 1.6;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-wrapper" id="screenshot-area">
+        <span class="blossom blossom-1">🌸</span>
+        <span class="blossom blossom-2">🌸</span>
+        <span class="blossom blossom-3">🌸</span>
+        <span class="blossom blossom-4">🌸</span>
+
+        <div class="card">
+            <!-- 윈도우 타이틀바 -->
+            <div class="title-bar">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <span class="title-text">Today's Pick.exe</span>
+            </div>
+
+            <!-- 리본 -->
+            <div class="ribbon">🌸 오 늘 의 추 천 🌸</div>
+
+            <!-- 상품 이미지 -->
+            <div class="image-area">
+                <div class="product-image">
+                    <!-- 👇 상품 이미지를 넣으려면 아래 주석을 풀고 src 수정 -->
+                    <span>📷 상품 이미지<br><small>(아래 코드의 img src 수정)</small></span>
+                    <!-- <img src="여기에_상품이미지_URL" alt="상품명"> -->
+                </div>
+            </div>
+
+            <!-- 상품 정보 -->
+            <div class="info">
+                <div class="category">CATEGORY ✦ 카테고리</div>
+                <h1 class="product-name">상품명을 여기에 입력하세요</h1>
+
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span>4.8 (1,234)</span>
+                </div>
+
+                <div class="price-area">
+                    <span class="badge">최저가</span>
+                    <span class="price">₩00,000</span>
+                </div>
+
+                <ul class="features">
+                    <li>핵심 포인트 1</li>
+                    <li>핵심 포인트 2</li>
+                    <li>핵심 포인트 3</li>
+                </ul>
+
+                <a href="https://link.coupang.com/a/eFkcm7" class="cta" target="_blank" rel="nofollow noopener">
+                    쿠팡에서 자세히 보기 →
+                </a>
+
+                <div class="disclosure">
+                    이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>
+                    이에 따른 일정액의 수수료를 제공받습니다.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
